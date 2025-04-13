@@ -33,11 +33,6 @@ public class TestBase {
         Configuration.browserCapabilities = capabilities;
     }
 
-    @AfterEach
-    void shutDown() {
-        closeWebDriver();
-    }
-
     @BeforeEach
     void beforeEach() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());

@@ -1,5 +1,6 @@
 package api;
 
+import io.qameta.allure.Step;
 import models.AddBooksListModel;
 import models.DeleteBookModel;
 import models.LoginResponseModel;
@@ -9,8 +10,9 @@ import static specs.ApiSpecs.resourcesRequestSpec;
 import static specs.ApiSpecs.getBaseResponseSpec;
 
 
-public class BooksApi {
+public class BooksApiSteps {
 
+    @Step("Удаление всех книг из профиля пользователя")
     public void deleteAllBooks(LoginResponseModel loginResponse) {
         given(resourcesRequestSpec)
                 .header("Authorization", "Bearer " + loginResponse.getToken())
@@ -20,7 +22,7 @@ public class BooksApi {
                 .then()
                 .spec(getBaseResponseSpec(204));
     }
-
+    @Step("Добавление книги в профиль пользователя")
     public void addBook(LoginResponseModel loginResponse, AddBooksListModel booksList) {
         given(resourcesRequestSpec)
                 .header("Authorization", "Bearer " + loginResponse.getToken())
@@ -30,6 +32,8 @@ public class BooksApi {
                 .then()
                 .spec(getBaseResponseSpec(201));
     }
+
+    @Step("Удаление добавленной книги из профиля пользователя")
     public void deleteBook(LoginResponseModel loginResponse, String isbn) {
         DeleteBookModel deleteBook = new DeleteBookModel(loginResponse.getUserId(), isbn);
 
